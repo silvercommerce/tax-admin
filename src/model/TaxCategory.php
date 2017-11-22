@@ -47,7 +47,7 @@ class TaxCategory extends DataObject implements PermissionProvider
     ];
 
     private static $db = [
-        "Title" => "Int",
+        "Title" => "Varchar",
         "Default" => "Boolean"
     ];
     
@@ -61,7 +61,7 @@ class TaxCategory extends DataObject implements PermissionProvider
 
     private static $many_many_extraFields = [
         "Rates" => [
-            "Location" => "Varchar"
+            "Location" => "Int"
         ]
     ];
 
