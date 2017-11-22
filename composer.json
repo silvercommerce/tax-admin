@@ -28,11 +28,6 @@
           "silverstripe/siteconfig": "~4.0",
           "symbiote/silverstripe-gridfieldextensions": "~3.0"          
       },
-      "extra": {
-          "expose": [
-              "client/dist"
-          ]
-      },
       "autoload": {
           "psr-4": {
               "SilverCommerce\\TaxAdmin\\": "src/"
