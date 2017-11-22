@@ -31,18 +31,18 @@ class SiteConfigExtension extends DataExtension
             'Root.Tax',
             [
                 GridField::create(
-                    'TaxRates',
+                    'TaxCategories',
                     null,
-                    $this->owner->TaxRates()
+                    $this->owner->TaxCategories()
                 )->setConfig(new GridFieldConfig_RelationEditor()),
                 LiteralField::create(
                     "TaxDivider",
                     '<div class="form-group field"></div>'
                 ),
                 GridField::create(
-                    'TaxCategories',
+                    'TaxRates',
                     null,
-                    $this->owner->TaxCategories()
+                    $this->owner->TaxRates()
                 )->setConfig(new GridFieldConfig_RelationEditor())
             ]
         );
