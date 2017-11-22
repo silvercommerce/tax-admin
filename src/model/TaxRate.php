@@ -53,7 +53,6 @@ class TaxRate extends DataObject implements PermissionProvider
         // If no tax rates, setup some defaults
         if (!TaxRate::get()->exists()) {
             $config = SiteConfig::current_site_config();
-
             $category = $config->TaxCategories()->first();
 
             $vat = TaxRate::create();
@@ -88,10 +87,8 @@ class TaxRate extends DataObject implements PermissionProvider
 
             if ($category) {
                 $category->Rates()->add($vat);
-                $category->Rates()->add($reduced);
-                $category->Rates()->add($zero);
                 DB::alteration_message(
-                    'Added tax to category',
+                    'Added VAT to category',
                     'created'
                 );
                 

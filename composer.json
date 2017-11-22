@@ -25,7 +25,8 @@
       },
       "require": {
           "silverstripe/framework": "~4.0",
-          "silverstripe/siteconfig": "~4.0"
+          "silverstripe/siteconfig": "~4.0",
+          "symbiote/silverstripe-gridfieldextensions": "~3.0"          
       },
       "extra": {
           "expose": [
