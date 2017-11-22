@@ -26,7 +26,8 @@ class TaxCategory extends DataObject implements PermissionProvider
     private static $table_name = 'TaxCategory';
 
     private static $db = [
-        "Title" => "Varchar"
+        "Title" => "Varchar",
+        "Default" => "Boolean"
     ];
     
     private static $has_one = [
@@ -45,7 +46,8 @@ class TaxCategory extends DataObject implements PermissionProvider
 
     private static $summary_fields = [
         "Title",
-        "RatesList"
+        "RatesList",
+        "Default"
     ];
 
     private static $casting = [
@@ -72,7 +74,8 @@ class TaxCategory extends DataObject implements PermissionProvider
             $config = SiteConfig::current_site_config();
 
             $cat = TaxCategory::create([
-                "Title" => "Standard Goods"
+                "Title" => "Standard Goods",
+                "Default" => 1
             ]);
             $cat->SiteID = $config->ID;
             $cat->write();
@@ -84,6 +87,21 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         parent::requireDefaultRecords();
+    }
+
+    public function onAfterWrite()
+    {
+        parent::onAfterWrite();
+
+        // If this is set to default, reset all other categories
+        if ($this->Default && $this->Site()->exists()) {
+            foreach ($this->Site()->TaxCategories() as $cat) {
+                if ($cat->ID != $this->ID && $cat->Default) {
+                    $cat->Default = false;
+                    $cat->write();
+                }
+            }
+        }
     }
 
     public function providePermissions()
