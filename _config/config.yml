@@ -1,0 +1,6 @@
+---
+Name: taxadminconfig
+---
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - SilverCommerce\TaxAdmin\Extensions\SiteConfigExtension
