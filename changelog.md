@@ -1,4 +1,4 @@
-# Log of changes for Orders Admin module
+# Log of changes for Tax Admin module
 
 ## 1.0.0
 
