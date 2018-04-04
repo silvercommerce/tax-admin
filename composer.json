@@ -33,7 +33,8 @@
     },
     "autoload": {
         "psr-4": {
-            "SilverCommerce\\TaxAdmin\\": "src/"
+            "SilverCommerce\\TaxAdmin\\": "src/",
+            "SilverCommerce\\TaxAdmin\\Tests\\": "tests/"
         }
     },
     "scripts": {
