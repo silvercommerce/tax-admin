@@ -4,3 +4,6 @@ Name: taxadminconfig
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - SilverCommerce\TaxAdmin\Extensions\SiteConfigExtension
+SilverCommerce\GeoZones\Model\Zone:
+  belongs_many_many:
+    TaxRates: SilverCommerce\TaxAdmin\Model\TaxRate

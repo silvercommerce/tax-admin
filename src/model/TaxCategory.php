@@ -2,22 +2,24 @@
 
 namespace SilverCommerce\TaxAdmin\Model;
 
-use SilverStripe\ORM\DataObject;
+use Locale;
 use SilverStripe\ORM\DB;
-use SilverStripe\Forms\RequiredFields;
-use SilverStripe\Security\PermissionProvider;
-use SilverStripe\Security\Permission;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
-use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\Forms\DropdownField;
+use SilverStripe\Security\Security;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDataColumns;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Security\Permission;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Security\PermissionProvider;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
+use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
 
 /**
  * A tax rate can be added to a product and allows you to map a product
@@ -78,6 +80,47 @@ class TaxCategory extends DataObject implements PermissionProvider
     public function getRatesList()
     {
         return implode(", ", $this->Rates()->column("Title"));
+    }
+
+    /**
+     * Attempt to determine the relevent current tax
+     * from the users location (or default store location)
+     * 
+     * @param string $country The current ISO-3166 2 character country code
+     * @param string $region A 3 character ISO-3166-2 subdivision code
+     * @return TaxRate|null
+     */
+    public function ValidTax($country = null, $region = null)
+    {
+        if (empty($country)) {
+            // First try and get the locale from the member
+            $member = Security::getCurrentUser();
+
+            if ($member && $member->getLocale()) {
+                $country = $member->getLocale();
+            }
+        }
+
+        if (empty($country)) {
+            $country = i18n::get_locale();
+        }
+
+        if (strlen($country) > 2) {
+            $country = Locale::getRegion($country);
+        }
+
+        $filter = [
+            "Zones.Regions.CountryCode" => $country
+        ];
+
+        if (isset($region)) {
+            $filter["Zones.Regions.Code"] = $region;
+        }
+
+        return $this
+            ->Rates()
+            ->filter($filter)
+            ->first();
     }
     
     public function getCMSValidator()

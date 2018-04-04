@@ -2,13 +2,18 @@
 
 namespace SilverCommerce\TaxAdmin\Model;
 
-use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
-use SilverStripe\Forms\RequiredFields;
-use SilverStripe\Security\PermissionProvider;
-use SilverStripe\Security\Permission;
+use SilverStripe\i18n\i18n;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Permission;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Forms\CheckboxSetField;
+use SilverStripe\Security\PermissionProvider;
+use SilverStripe\Forms\MultiSelectField;
+use SilverStripe\Forms\ListboxField;
+use SilverCommerce\GeoZones\Model\Zone;
 
 /**
  * A tax rate can be added to a product and allows you to map a product
@@ -22,23 +27,37 @@ use SilverStripe\SiteConfig\SiteConfig;
  */
 class TaxRate extends DataObject implements PermissionProvider
 {
-    
+
     private static $table_name = 'TaxRate';
 
     private static $db = [
         "Title" => "Varchar",
-        "Rate"=> "Decimal"
+        "Rate" => "Decimal"
     ];
 
     private static $has_one = [
         "Site" => SiteConfig::class
     ];
 
+    private static $many_many = [
+        "Zones" => Zone::class
+    ];
+
+    private static $casting = [
+        "ZonesList" => "Varchar"
+    ];
+
     private static $summary_fields = [
         "Title",
-        "Rate"
+        "Rate",
+        "ZonesList"
     ];
-    
+
+    public function getZonesList()
+    {
+        return implode(", ", $this->Zones()->column("Name"));
+    }
+
     public function getCMSValidator()
     {
         return RequiredFields::create([
@@ -46,10 +65,9 @@ class TaxRate extends DataObject implements PermissionProvider
             "Rate"
         ]);
     }
-    
+
     public function requireDefaultRecords()
     {
-        
         // If no tax rates, setup some defaults
         if (!TaxRate::get()->exists()) {
             $config = SiteConfig::current_site_config();
