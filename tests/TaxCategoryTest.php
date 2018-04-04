@@ -17,11 +17,11 @@ class TaxCategoryTest extends SapphireTest
 
     protected static $fixture_file = 'TaxData.yml';
 
-	public function setUp()
+    public function setUp()
     {
-		parent::setUp();
+        parent::setUp();
         Config::inst()->set(Region::class, "create_on_build", false);
-	}
+    }
 
     /**
      * Test category valid tax retursn the correct value

@@ -24,10 +24,10 @@ use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
 /**
  * A tax rate can be added to a product and allows you to map a product
  * to a percentage of tax.
- * 
+ *
  * If added to a product, the tax will then be added to the price
- * automatically. 
- * 
+ * automatically.
+ *
  * @author i-lateral (http://www.i-lateral.com)
  * @package catalogue
  */
@@ -85,7 +85,7 @@ class TaxCategory extends DataObject implements PermissionProvider
     /**
      * Attempt to determine the relevent current tax
      * from the users location (or default store location)
-     * 
+     *
      * @param string $country The current ISO-3166 2 character country code
      * @param string $region A 3 character ISO-3166-2 subdivision code
      * @return TaxRate|null
@@ -152,9 +152,9 @@ class TaxCategory extends DataObject implements PermissionProvider
             $edit_cols->setDisplayFields(array_merge(
                 $edit_cols->getDisplayFields($grid),
                 [
-                    'Location'  => [ 
+                    'Location'  => [
                         "title" => "Location",
-                        "callback" => function($record, $column, $grid) {
+                        "callback" => function ($record, $column, $grid) {
                             return DropdownField::create($column)
                                 ->setSource(Config::inst()->get(TaxCategory::class, "rate_locations"));
                         }

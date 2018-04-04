@@ -18,10 +18,10 @@ use SilverCommerce\GeoZones\Model\Zone;
 /**
  * A tax rate can be added to a product and allows you to map a product
  * to a percentage of tax.
- * 
+ *
  * If added to a product, the tax will then be added to the price
- * automatically. 
- * 
+ * automatically.
+ *
  * @author i-lateral (http://www.i-lateral.com)
  * @package catalogue
  */
@@ -109,7 +109,6 @@ class TaxRate extends DataObject implements PermissionProvider
                     'Added VAT to category',
                     'created'
                 );
-                
             }
         }
         
