@@ -4,6 +4,7 @@ namespace SilverCommerce\TaxAdmin\Model;
 
 use Locale;
 use SilverStripe\ORM\DB;
+use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
