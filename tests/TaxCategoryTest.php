@@ -2,10 +2,11 @@
 
 namespace SilverCommerce\TaxAdmin\Tests;
 
+use SilverStripe\i18n\i18n;
 use SilverStripe\Dev\SapphireTest;
+use SilverStripe\Security\Security;
 use SilverStripe\Core\Config\Config;
 use SilverCommerce\GeoZones\Model\Region;
-use SilverCommerce\TaxAdmin\Model\TaxRate;
 use SilverCommerce\TaxAdmin\Model\TaxCategory;
 
 /**
@@ -21,6 +22,11 @@ class TaxCategoryTest extends SapphireTest
     {
         parent::setUp();
         Config::inst()->set(Region::class, "create_on_build", false);
+        
+        // Setup default locale
+        i18n::set_locale("en_GB");
+        $member = Security::getCurrentUser();
+        $member->Locale = "en_GB";
     }
 
     /**
@@ -30,7 +36,11 @@ class TaxCategoryTest extends SapphireTest
     {
         $obj = $this->objFromFixture(TaxCategory::class, "uk");
 
-        // Test default location
+        // Test default location (when logged in)
+        $this->assertEquals("VAT", $obj->ValidTax()->Title);
+
+        // Test default location (when not logged in)
+        Security::setCurrentUser(null);
         $this->assertEquals("VAT", $obj->ValidTax()->Title);
 
         // Test VAT location
