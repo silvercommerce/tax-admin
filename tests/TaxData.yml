@@ -1,0 +1,42 @@
+SilverCommerce\GeoZones\Model\Region:
+  gb_glos:
+    Name: "Gloucestershire"
+    Code: "GLS"
+    CountryCode: "GB"
+  de_berlin:
+    Name: "Berlin"
+    Code: "BE"
+    CountryCode: "DE"
+  us_arizona:
+    Name: "Arizona"
+    Code: "AZ"
+    CountryCode: "US"
+SilverCommerce\GeoZones\Model\Zone:
+  uk:
+    Name: "UK"
+    Country: "GB"
+    AllRegions: true
+    Enabled: true
+  de:
+    Name: "Germany"
+    Country: "DE"
+    AllRegions: true
+    Enabled: true
+  us:
+    Name: "US"
+    Country: "US"
+    AllRegions: true
+    Enabled: true
+SilverCommerce\TaxAdmin\Model\TaxRate:
+  vat:
+    Title: "VAT"
+    Rate: 20
+    Zones: =>SilverCommerce\GeoZones\Model\Zone.uk,=>SilverCommerce\GeoZones\Model\Zone.de
+  reduced:
+    Title: "reduced"
+    Rate: 5
+    Zones: =>SilverCommerce\GeoZones\Model\Zone.us
+SilverCommerce\TaxAdmin\Model\TaxCategory:
+  uk:
+    Title: "UK"
+    Rates: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat,=>SilverCommerce\TaxAdmin\Model\TaxRate.reduced
