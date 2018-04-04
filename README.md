@@ -4,10 +4,10 @@ Silverstripe Tax Admin
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/badges/quality-score.png?b=1.0)](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/?branch=1.0)
 [![Build Status](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/badges/build.png?b=1.0)](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/build-status/1.0)
 
-Adds ability to create and edit taz rates and categories in
+Adds ability to create and edit tax rates and categories in
 the CMS (via siteconfig).
 
-This allows for flexible tax configuratuions (meaning that
+This allows for flexible tax configurations (meaning that
 you can have tax rates for different countries, zones, etc).
 
 You can then map these categories (or rates) to products,
@@ -22,9 +22,12 @@ calculations.
 
 ## Assigning Taxes to Zones
 
-By default this module integrates with the [GeoZones](https://github.com/silvercommerce/geozones)
-module. This allows you to assign zones to `TaxRate` objects. You can then use `TaxCategory::getValidRate()` to return the most appropriate TaxRate for this category, based
-either on the provided locale and zone, of the system default. EG:
+By default this module integrates with the
+[GeoZones](https://github.com/silvercommerce/geozones)
+module. This allows you to assign zones to `TaxRate` objects.
+You can then use `TaxCategory::getValidRate()` to return the
+most appropriate TaxRate for this category, based either on
+the provided locale and zone, of the system default. EG:
 
 ```php
 use SilverCommerce\TaxAdmin\Model\TaxCategory;
