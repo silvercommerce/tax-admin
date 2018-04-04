@@ -2,7 +2,7 @@ Silverstripe Tax Admin
 ======================
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/badges/quality-score.png?b=1.0)](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/?branch=1.0)
-[![Build Status](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/badges/build.png?b=1.0)](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/build-status/1.0)
+[![Build Status](https://travis-ci.org/silvercommerce/tax-admin.svg?branch=1.0)](https://travis-ci.org/silvercommerce/tax-admin)
 
 Adds ability to create and edit tax rates and categories in
 the CMS (via siteconfig).
