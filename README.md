@@ -1,6 +1,9 @@
 Silverstripe Tax Admin
 ======================
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/badges/quality-score.png?b=1.0)](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/?branch=1.0)
+[![Build Status](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/badges/build.png?b=1.0)](https://scrutinizer-ci.com/g/silvercommerce/tax-admin/build-status/1.0)
+
 Adds ability to create and edit taz rates and categories in
 the CMS (via siteconfig).
 
