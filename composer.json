@@ -33,6 +33,9 @@
             "SilverCommerce\\TaxAdmin\\": "src/"
         }
     },
+    "scripts": {
+        "lint": "phpcs -s src/ tests/"
+    },
     "suggest": {
         "silverstripe/cms": "Add full content management support to your site"
     }
