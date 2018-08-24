@@ -53,6 +53,11 @@ class TaxRate extends DataObject implements PermissionProvider
         "ZonesList"
     ];
 
+    private static $searchable_fields = [
+        "Title",
+        "Rate"
+    ];
+
     public function getZonesList()
     {
         return implode(", ", $this->Zones()->column("Name"));

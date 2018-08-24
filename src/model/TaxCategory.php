@@ -143,25 +143,10 @@ class TaxCategory extends DataObject implements PermissionProvider
 
             $config
                 ->removeComponentsByType(GridFieldAddNewButton::class)
-                ->removeComponentsByType(GridFieldDataColumns::class)
                 ->removeComponentsByType(GridFieldEditButton::class)
                 ->removeComponentsByType(GridFieldDeleteAction::class)
                 ->removeComponentsByType(GridFieldDetailForm::class)
-                ->addComponent($edit_cols = new GridFieldEditableColumns())
                 ->addComponent(new GridFieldDeleteAction(true));
-
-            $edit_cols->setDisplayFields(array_merge(
-                $edit_cols->getDisplayFields($grid),
-                [
-                    'Location'  => [
-                        "title" => "Location",
-                        "callback" => function ($record, $column, $grid) {
-                            return DropdownField::create($column)
-                                ->setSource(Config::inst()->get(TaxCategory::class, "rate_locations"));
-                        }
-                    ]
-                ]
-            ));
         }
 
         return $fields;
