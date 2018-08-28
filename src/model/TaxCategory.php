@@ -5,6 +5,7 @@ namespace SilverCommerce\TaxAdmin\Model;
 use Locale;
 use SilverStripe\ORM\DB;
 use SilverStripe\i18n\i18n;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
@@ -13,6 +14,7 @@ use SilverStripe\Forms\DropdownField;
 use SilverStripe\Security\Permission;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverCommerce\TaxAdmin\Model\TaxRate;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
@@ -21,6 +23,7 @@ use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 /**
  * A tax rate can be added to a product and allows you to map a product
@@ -133,6 +136,8 @@ class TaxCategory extends DataObject implements PermissionProvider
 
     public function getCMSFields()
     {
+        $site = SiteConfig::current_site_config();
+
         $fields = parent::getCMSFields();
 
         $grid = $fields->dataFieldByName("Rates");
@@ -141,11 +146,22 @@ class TaxCategory extends DataObject implements PermissionProvider
             $grid->setTitle("");
             $config = $grid->getConfig();
 
+            $add_field = new GridFieldAddExistingAutocompleter('buttons-before-right');
+
+            if ($add_field && $site) {
+                $dataClass = $grid->getModelClass();
+                $add_field->setSearchList(
+                    DataList::create($dataClass)->filter('Site.ID', $site->ID)
+                );
+            }
+
             $config
                 ->removeComponentsByType(GridFieldAddNewButton::class)
                 ->removeComponentsByType(GridFieldEditButton::class)
                 ->removeComponentsByType(GridFieldDeleteAction::class)
                 ->removeComponentsByType(GridFieldDetailForm::class)
+                ->removeComponentsByType(GridFieldAddExistingAutocompleter::class)
+                ->addComponent($add_field)
                 ->addComponent(new GridFieldDeleteAction(true));
         }
 
