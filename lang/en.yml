@@ -1,0 +1,3 @@
+en:
+  SilverCommerce\TaxAdmin\Model\TaxRate:
+    db_Global: 'Disable GeoZones for this tax rate'

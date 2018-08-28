@@ -114,6 +114,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
 
         $filter = [
+            'Global' => 1,
             "Zones.Regions.CountryCode" => $country
         ];
 
@@ -123,7 +124,7 @@ class TaxCategory extends DataObject implements PermissionProvider
 
         return $this
             ->Rates()
-            ->filter($filter)
+            ->filterAny($filter)
             ->first();
     }
     

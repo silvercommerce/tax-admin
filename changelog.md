@@ -17,3 +17,4 @@
 ## 1.2.1 
 
 * Made TaxCategory subsite aware
+* added support for global taxrates

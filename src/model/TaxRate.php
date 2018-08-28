@@ -32,7 +32,8 @@ class TaxRate extends DataObject implements PermissionProvider
 
     private static $db = [
         "Title" => "Varchar",
-        "Rate" => "Decimal"
+        "Rate" => "Decimal",
+        'Global' => 'Boolean'
     ];
 
     private static $has_one = [
