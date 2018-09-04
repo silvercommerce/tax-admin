@@ -53,9 +53,42 @@ class TaxCategoryTest extends SapphireTest
         $this->assertEquals("reduced", $obj->ValidTax("US")->Title);
         
         // Test location for valid country and invalid region
-        $this->assertNull($obj->ValidTax("GB", "ABE"));
+        $this->assertNull($obj->ValidTax("GB", "HDF"));
 
         // Test unavailable location
         $this->assertNull($obj->ValidTax("ES"));
+    }
+
+
+
+    /**
+     * Test category valid tax returns the correct value when using
+     * the global flag.
+     */
+    public function testGlobalValidTax()
+    {
+        $obj = $this->objFromFixture(TaxCategory::class, "uk_global");
+
+        // Test default location (when logged in)
+        $this->assertEquals("VAT Global", $obj->ValidTax()->Title);
+
+        // Test default location (when not logged in)
+        Security::setCurrentUser(null);
+        $this->assertEquals("VAT Global", $obj->ValidTax()->Title);
+
+        // Test VAT location
+        $this->assertEquals("VAT Global", $obj->ValidTax("GB")->Title);
+
+        // Test VAT location for country and region
+        $this->assertEquals("VAT Global", $obj->ValidTax("GB", "GLS")->Title);
+        
+        // Test reduced location
+        $this->assertEquals("VAT Global", $obj->ValidTax("US")->Title);
+
+        // Test invalid location
+        $this->assertEquals("VAT Global", $obj->ValidTax("ES")->Title);
+        
+        // Test location for valid country and invalid region
+        $this->assertNull($obj->ValidTax("GB", "HDF"));
     }
 }

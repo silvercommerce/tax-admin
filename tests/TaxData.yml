@@ -28,6 +28,11 @@ SilverCommerce\GeoZones\Model\Zone:
     AllRegions: true
     Enabled: true
 SilverCommerce\TaxAdmin\Model\TaxRate:
+  global:
+    Title: "VAT Global"
+    Rate: 20
+    Global: 1
+    Zones: =>SilverCommerce\GeoZones\Model\Zone.uk,=>SilverCommerce\GeoZones\Model\Zone.de
   vat:
     Title: "VAT"
     Rate: 20
@@ -40,3 +45,6 @@ SilverCommerce\TaxAdmin\Model\TaxCategory:
   uk:
     Title: "UK"
     Rates: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat,=>SilverCommerce\TaxAdmin\Model\TaxRate.reduced
+  uk_global:
+    Title: "UK Global"
+    Rates: =>SilverCommerce\TaxAdmin\Model\TaxRate.global
