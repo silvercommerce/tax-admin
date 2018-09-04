@@ -18,3 +18,7 @@
 
 * Made TaxCategory subsite aware
 * added support for global taxrates
+
+## 1.2.2
+
+* Add ability to round up or down when calculating tax (settable via config)
