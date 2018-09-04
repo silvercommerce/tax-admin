@@ -118,14 +118,15 @@ class TaxCategory extends DataObject implements PermissionProvider
             "Zones.Regions.CountryCode" => $country
         ];
 
+        $rates = $this
+            ->Rates()
+            ->filterAny($filter);
+
         if (isset($region)) {
-            $filter["Zones.Regions.Code"] = $region;
+            $rates = $rates->filter("Zones.Regions.Code", $region);
         }
 
-        return $this
-            ->Rates()
-            ->filterAny($filter)
-            ->first();
+        return $rates->first();
     }
     
     public function getCMSValidator()
