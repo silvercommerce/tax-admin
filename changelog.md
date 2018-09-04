@@ -22,3 +22,7 @@
 ## 1.2.2
 
 * Add ability to round up or down when calculating tax (settable via config)
+
+## 1.2.3
+
+* PHPCBF

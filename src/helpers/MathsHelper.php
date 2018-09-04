@@ -57,7 +57,7 @@ class MathsHelper
      * @param float   $value  The value we want to round
      * @param int     $places The number of decimal places to round to
      * @param boolean $down   Do we round down? If false value will be rounded up
-     * 
+     *
      * @return float
      */
     public static function round($value, $places = 0, $down = null, $negatives = false)
