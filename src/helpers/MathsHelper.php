@@ -15,12 +15,16 @@ class MathsHelper
     use Injectable;
     use Configurable;
 
+    const ROUND_DEFAULT = 1;
+
+    const ROUND_UP = 2;
+
+    const ROUND_DOWN = 3;
+
     /**
-     * Round all numbers down globally
-     *
-     * @var boolean
+     * The default rounding used by this class
      */
-    private static $round_down = true;
+    private static $default_round = self::ROUND_DEFAULT;
 
     /**
      * Rounds up a float to a specified number of decimal places
@@ -33,7 +37,7 @@ class MathsHelper
      */
     public static function round_up($value, $places = 0)
     {
-        return self::round($value, $places, false);
+        return self::round($value, $places, self::ROUND_UP);
     }
 
     /**
@@ -47,7 +51,7 @@ class MathsHelper
      */
     public static function round_down($value, $places = 0)
     {
-        return self::round($value, $places, true);
+        return self::round($value, $places, self::ROUND_DOWN);
     }
 
     /**
@@ -60,29 +64,36 @@ class MathsHelper
      *
      * @return float
      */
-    public static function round($value, $places = 0, $down = null, $negatives = false)
+    public static function round($value, $places = 0, $type = null)
     {
-        if (empty($down)) {
-            $down = Config::inst()->get(self::class, "round_down");
+        if (!isset($type)) {
+            $type = Config::inst()->get(self::class, "default_round");
         }
 
         $offset = 0;
 
         // If we are rounding to decimals get a more granular number.
-        if ($places !== 0) {
-            if ($down) {
+        if ($places !== 0 && $type !== self::ROUND_DEFAULT) {
+            if ($type == self::ROUND_DOWN) {
                 $offset = -0.45;
-            } else {
+            } elseif ($type == self::ROUND_UP) {
                 $offset = 0.45;
             }
-            $offset /= pow(10, $places);
+            $offset /= pow(10, $places) + 1;
         }
 
-        $return = round(
-            $value + $offset,
-            $places,
-            PHP_ROUND_HALF_UP
-        );
+        // if we are rounding to whole numbers and forcing up
+        // down, use ceil/floor
+        if ($places == 0 && $type == self::ROUND_UP) {
+            $return = ceil($value);
+        } elseif ($places == 0 && $type == self::ROUND_DOWN) {
+            $return = floor($value);
+        } else {
+            $return = round(
+                $value + $offset,
+                $places
+            );
+        }
 
         return $return;
     }
