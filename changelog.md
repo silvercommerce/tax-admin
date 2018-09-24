@@ -36,3 +36,7 @@
 ## 1.3.1
 
 * PHPCBF
+
+## 1.3.2
+
+* Tweak Unit tests for better PostgreSQL support

@@ -31,6 +31,7 @@ class TaxRateTest extends SapphireTest
         $obj = $this->objFromFixture(TaxRate::class, "vat");
 
         // Test default location
-        $this->assertEquals("UK, Germany", $obj->ZonesList);
+        $this->assertTrue(strpos($obj->ZonesList, "UK") !== false);
+        $this->assertTrue(strpos($obj->ZonesList, "Germany") !== false);
     }
 }
