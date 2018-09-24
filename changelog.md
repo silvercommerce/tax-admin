@@ -32,3 +32,7 @@
 * Set `MathsHelper` to use standard rounding by default
 * Ensure proper rounding of whole numbers
 * Add unit tests for `MathsHelper`
+
+## 1.3.1
+
+* PHPCBF

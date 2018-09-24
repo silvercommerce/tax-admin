@@ -29,7 +29,7 @@ class MathsHelperTest extends SapphireTest
 
     /**
      * Test that standard rounding works to different decimals.
-     * 
+     *
      */
     public function testRound()
     {
@@ -163,7 +163,7 @@ class MathsHelperTest extends SapphireTest
 
     /**
      * Test forcing rounding up.
-     * 
+     *
      */
     public function testRoundUp()
     {
