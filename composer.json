@@ -39,8 +39,8 @@
         }
     },
     "scripts": {
-        "lint": "phpcs -s src/ tests/",
-        "lint-clean": "phpcbf src/ tests/"
+        "lint": "vendor/bin/phpcs src/ tests/",
+        "lint-clean": "vendor/bin/phpcbf src/ tests/"
     },
     "suggest": {
         "silverstripe/cms": "Add full content management support to your site"
