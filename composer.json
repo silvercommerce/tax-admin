@@ -44,5 +44,7 @@
     },
     "suggest": {
         "silverstripe/cms": "Add full content management support to your site"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
