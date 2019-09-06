@@ -10,7 +10,6 @@ use SilverStripe\Core\Config\Config;
 use SilverCommerce\GeoZones\Model\Region;
 use SilverCommerce\TaxAdmin\PricingExtension;
 use SilverCommerce\TaxAdmin\Tests\Model\TestProduct;
-use SilverStripe\ORM\DataExtension;
 
 /**
  * Test functionality of postage extension
