@@ -48,3 +48,47 @@ SilverCommerce\TaxAdmin\Model\TaxCategory:
   uk_global:
     Title: "UK Global"
     Rates: =>SilverCommerce\TaxAdmin\Model\TaxRate.global
+SilverCommerce\TaxAdmin\Tests\Model\TestProduct:
+  product1:
+    Title: "Test Product 1"
+    BasePrice: 16.66
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product2:
+    Title: "Test Product 2"
+    BasePrice: 83.29
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product3:
+    Title: "Test Product 3"
+    BasePrice: 12.50
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.reduced
+  product4:
+    Title: "Test Product 4"
+    BasePrice: 12.50
+  product5:
+    Title: "Test Product 5"
+    BasePrice: 49.99
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product6:
+    Title: "Test Product 6"
+    BasePrice: 124.17 # 149.00 Inc VAT
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product7:
+    Title: "Test Product 7"
+    BasePrice: 12.49
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product8:
+    Title: "Test Product 8"
+    BasePrice: 16.625 # 19.95 Inc VAT
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product9:
+    Title: "Test Product 9"
+    BasePrice: 14.125 # 16.95 Inc VAT
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  product10:
+    Title: "Test Product 10"
+    BasePrice: 124.99 # 149.99 Inc VAT
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+  extendable:
+    Title: "Test Product Extendable"
+    BasePrice: 12.50
+    TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
