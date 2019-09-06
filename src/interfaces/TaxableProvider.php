@@ -17,7 +17,7 @@ interface TaxableProvider
     /**
      * A \SilverCommerce\TaxAdmin\Model\TaxRate that can be used for
      * Taxable calculations
-     * 
+     *
      * @return \SilverCommerce\TaxAdmin\Model\TaxRate
      */
     public function getTaxRate();

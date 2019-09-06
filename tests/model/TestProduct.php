@@ -92,7 +92,7 @@ class TestProduct extends DataObject implements TestOnly, TaxableProvider
 
     /**
      * Return the currently available locale
-     * 
+     *
      * @return string
      */
     public function getLocale()
