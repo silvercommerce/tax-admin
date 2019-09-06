@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Core\Config\Config;
 use SilverCommerce\GeoZones\Model\Region;
 use SilverCommerce\TaxAdmin\Model\TaxRate;
-use SilverCommerce\TaxAdmin\Model\TaxCategory;
+use SilverCommerce\TaxAdmin\Tests\Model\TestProduct;
 
 /**
  * Test functionality of postage extension
@@ -16,6 +16,15 @@ class TaxRateTest extends SapphireTest
 {
 
     protected static $fixture_file = 'TaxData.yml';
+
+    /**
+     * Setup test only objects
+     *
+     * @var array
+     */
+    protected static $extra_dataobjects = [
+        TestProduct::class
+    ];
 
     public function setUp()
     {
