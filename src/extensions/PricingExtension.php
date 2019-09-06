@@ -45,7 +45,7 @@ class PricingExtension extends DataExtension
 
 
     private static $db = [
-        'BasePrice' => 'Decimal'
+        'BasePrice' => 'Decimal(9,3)'
     ];
 
     private static $has_one = [
@@ -101,23 +101,22 @@ class PricingExtension extends DataExtension
     /**
      * Get should this field automatically show the price including TAX?
      *
-     * @return boolean
+     * @return bool
      */
     public function getShowPriceWithTax()
     {
-        return $this->config()->get('default_price_with_tax');
+        return (bool)$this->config()->get('default_price_with_tax');
     }
-
 
     /**
      * Get if this field should add a "Tax String" (EG Includes VAT) to the rendered
      * currency?
      *
-     * @return boolean|null
+     * @return bool|null
      */
     public function getShowTaxString()
     {
-        return $this->config()->get('default_tax_string');
+        return (bool)$this->config()->get('default_tax_string');
     }
 
     /**
@@ -269,11 +268,11 @@ class PricingExtension extends DataExtension
             return 0;
         }
 
+        $price = $this->getOwner()->BasePrice;
+        $percent = $this->getOwner()->TaxPercentage;
+
         // Round using default rounding defined on MathsHelper
-        $tax = MathsHelper::round(
-            ($this->getOwner()->BasePrice / 100) * $this->getOwner()->TaxPercentage,
-            4
-        );
+        $tax = ($price / 100) * $percent;
 
         $result = $this->getOwner()->filterExtensionResults(
             $this->getOwner()->extend("updateTaxAmount", $tax)
@@ -300,7 +299,7 @@ class PricingExtension extends DataExtension
     }
 
     /**
-     * Get the Tax Rate object applied to this product
+     * Get the Total price and tax
      *
      * @return float
      */
@@ -312,28 +311,6 @@ class PricingExtension extends DataExtension
 
         $result = $this->getOwner()->filterExtensionResults(
             $this->getOwner()->extend("updatePriceAndTax", $price)
-        );
-
-        if (!empty($result)) {
-            return $result;
-        }
-
-        return $price;
-    }
-
-    /**
-     * Get the price and tax amount rounded to the desired precision
-     *
-     * @return float
-     */
-    public function getRoundedPriceAndTax()
-    {
-        $amount = $this->getOwner()->RoundedNoTaxPrice;
-        $tax = $this->getOwner()->RoundedTaxAmount;
-        $price = $amount + $tax;
-
-        $result = $this->getOwner()->filterExtensionResults(
-            $this->getOwner()->extend("updateRoundedPriceAndTax", $price)
         );
 
         if (!empty($result)) {
@@ -399,9 +376,9 @@ class PricingExtension extends DataExtension
         $formatter = $this->getOwner()->getFormatter();
 
         if ($include_tax) {
-            $amount = $this->getOwner()->RoundedPriceAndTax;
+            $amount = $this->getOwner()->PriceAndTax;
         } else {
-            $amount = $this->getOwner()->RoundedNoTaxPrice;
+            $amount = $this->getOwner()->NoTaxPrice;
         }
 
         // Without currency, format as basic localised number
