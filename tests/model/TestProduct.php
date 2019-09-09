@@ -31,7 +31,9 @@ class TestProduct extends DataObject implements TestOnly, TaxableProvider
     private static $db = [
         "Title" => "Varchar",
         "BasePrice" => 'Decimal(9,3)',
-        "StockID" => "Varchar"
+        "StockID" => "Varchar",
+        "StockLevel" => "Int",
+        "Weight" => "Decimal"
     ];
 
     private static $has_one = [
