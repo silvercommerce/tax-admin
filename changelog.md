@@ -41,6 +41,6 @@
 
 * Tweak Unit tests for better PostgreSQL support
 
-## 1.3.3
+## 1.4.0
 
 * Added Taxable trait and TaxableProvider interface to help with tax based calculations
