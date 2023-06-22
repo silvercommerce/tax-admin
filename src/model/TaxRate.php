@@ -11,6 +11,7 @@ use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Security\PermissionProvider;
 use SilverCommerce\GeoZones\Model\Zone;
 use SilverStripe\ORM\FieldType\DBCurrency;
+use SilverStripe\Security\Security;
 
 /**
  * A tax rate can be added to a product and allows you to map a product
@@ -162,7 +163,7 @@ class TaxRate extends DataObject implements PermissionProvider
         }
 
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_RATE"])) {
@@ -187,7 +188,7 @@ class TaxRate extends DataObject implements PermissionProvider
         }
 
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_RATE"])) {
@@ -212,7 +213,7 @@ class TaxRate extends DataObject implements PermissionProvider
         }
 
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_RATE"])) {
