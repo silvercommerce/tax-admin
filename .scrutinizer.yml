@@ -14,7 +14,7 @@ checks:
     unused_methods: true
     unreachable_code: true
     too_many_arguments: true
-    sql_injection_vulnerabilities: true
+    sql_injection_vulnerabilities: true 
     simplify_boolean_return: true
     side_effects_or_types: true
     security_vulnerabilities: true
@@ -64,6 +64,7 @@ checks:
     avoid_closing_tag: true
     assignment_of_null_return: true
     argument_type_checks: true
+    version: "8.1"
 
 build:
   nodes:
