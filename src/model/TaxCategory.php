@@ -247,7 +247,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
@@ -272,7 +272,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
@@ -297,7 +297,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
