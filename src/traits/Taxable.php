@@ -136,8 +136,8 @@ trait Taxable
         $price = $this->getBasePrice();
         $percent = $this->getTaxPercentage();
 
-        // Round using default rounding defined on MathsHelper
         $tax = ($price / 100) * $percent;
+        $roundedTax = round($tax, 3);
 
         if ($this->hasMethod('extend')) {
             $result = $this->filterTaxableExtensionResults(
@@ -149,7 +149,7 @@ trait Taxable
             }
         }
 
-        return $tax;
+        return $roundedTax;
     }
 
     /**
@@ -161,7 +161,7 @@ trait Taxable
     {
         $notax = $this->getNoTaxPrice();
         $tax = $this->getTaxAmount();
-        $price = $notax + $tax;
+        $price = round($notax + $tax, 3);
 
         if ($this->hasMethod('extend')) {
             $result = $this->filterTaxableExtensionResults(
