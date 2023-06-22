@@ -3,17 +3,14 @@
 namespace SilverCommerce\TaxAdmin\Model;
 
 use SilverStripe\ORM\DB;
-use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Security\PermissionProvider;
-use SilverStripe\Forms\MultiSelectField;
-use SilverStripe\Forms\ListboxField;
 use SilverCommerce\GeoZones\Model\Zone;
+use SilverStripe\ORM\FieldType\DBCurrency;
 
 /**
  * A tax rate can be added to a product and allows you to map a product
@@ -32,7 +29,7 @@ class TaxRate extends DataObject implements PermissionProvider
 
     private static $db = [
         "Title" => "Varchar",
-        "Rate" => "Decimal",
+        "Rate" => DBCurrency::class,
         'Global' => 'Boolean'
     ];
 
