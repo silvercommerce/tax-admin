@@ -78,11 +78,11 @@ SilverCommerce\TaxAdmin\Tests\Model\TestProduct:
     TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
   product8:
     Title: "Test Product 8"
-    BasePrice: 16.625 # 19.95 Inc VAT
+    BasePrice: 16.62 # 19.95 Inc VAT
     TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
   product9:
     Title: "Test Product 9"
-    BasePrice: 14.125 # 16.95 Inc VAT
+    BasePrice: 14.12 # 16.95 Inc VAT
     TaxRate: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
   product10:
     Title: "Test Product 10"
