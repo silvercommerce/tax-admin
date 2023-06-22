@@ -64,9 +64,11 @@ checks:
     avoid_closing_tag: true
     assignment_of_null_return: true
     argument_type_checks: true
-    version: "8.1"
 
 build:
+  environment:
+    php:
+      version: 8.1
   nodes:
     analysis:
       tests:
