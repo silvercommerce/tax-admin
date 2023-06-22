@@ -47,12 +47,6 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:catharsisjelly/silverstripe-gridfieldextensions.git"
-        }
-    ],
     "config": {
         "allow-plugins": {
             "composer/installers": true,
