@@ -137,7 +137,7 @@ trait Taxable
         $percent = $this->getTaxPercentage();
 
         $tax = ($price / 100) * $percent;
-        $roundedTax = round($tax, 3);
+        $roundedTax = round($tax, 2);
 
         if ($this->hasMethod('extend')) {
             $result = $this->filterTaxableExtensionResults(
@@ -161,7 +161,7 @@ trait Taxable
     {
         $notax = $this->getNoTaxPrice();
         $tax = $this->getTaxAmount();
-        $price = round($notax + $tax, 3);
+        $price = round($notax + $tax, 2);
 
         if ($this->hasMethod('extend')) {
             $result = $this->filterTaxableExtensionResults(
