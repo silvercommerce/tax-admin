@@ -9,6 +9,7 @@ use SilverCommerce\TaxAdmin\Model\TaxRate;
 use SilverCommerce\TaxAdmin\Traits\Taxable;
 use SilverCommerce\TaxAdmin\Model\TaxCategory;
 use SilverCommerce\TaxAdmin\Interfaces\TaxableProvider;
+use SilverStripe\ORM\FieldType\DBCurrency;
 
 class TestProduct extends DataObject implements TestOnly, TaxableProvider
 {
@@ -30,7 +31,7 @@ class TestProduct extends DataObject implements TestOnly, TaxableProvider
 
     private static $db = [
         "Title" => "Varchar",
-        "BasePrice" => 'Decimal(9,3)',
+        "BasePrice" => DBCurrency::class,
         "StockID" => "Varchar",
         "StockLevel" => "Int",
         "Weight" => "Decimal"
