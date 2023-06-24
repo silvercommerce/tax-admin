@@ -26,7 +26,7 @@
     "require": {
         "silverstripe/framework": "~4.11 || ^5",
         "silverstripe/siteconfig": "~4.11 || ^5",
-        "silvercommerce/geozones": "~1.0"
+        "silvercommerce/geozones": "dev-cms-5-compat"
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
@@ -52,5 +52,11 @@
             "composer/installers": true,
             "silverstripe/vendor-plugin": true
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:catharsisjelly/silvercommerce-geozones.git"
+        }
+    ]
 }
