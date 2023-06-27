@@ -31,7 +31,7 @@ SilverCommerce\TaxAdmin\Model\TaxRate:
   global:
     Title: "VAT Global"
     Rate: 20
-    Global: 1
+    Global: true
     Zones: =>SilverCommerce\GeoZones\Model\Zone.uk,=>SilverCommerce\GeoZones\Model\Zone.de
   vat:
     Title: "VAT"

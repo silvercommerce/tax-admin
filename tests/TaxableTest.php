@@ -130,7 +130,7 @@ class TaxableTest extends SapphireTest
         $this->assertEquals('16.66', $p_one->NoTaxPrice);
         $this->assertEquals('83.29', $p_two->NoTaxPrice);
         $this->assertEquals('49.99', $p_three->NoTaxPrice);
-        $this->assertEquals('16.62', $p_four->NoTaxPrice);
+        $this->assertEquals('16.625', $p_four->NoTaxPrice);
     }
 
     public function testGetTaxRate()
@@ -166,16 +166,16 @@ class TaxableTest extends SapphireTest
         $p_nine = $this->objFromFixture(TestProduct::class, 'product9');
         $p_ten = $this->objFromFixture(TestProduct::class, 'product10');
 
-        $this->assertEquals(3.33, $p_one->getTaxAmount());
-        $this->assertEquals(16.66, $p_two->getTaxAmount());
-        $this->assertEquals(0.63, $p_three->getTaxAmount());
+        $this->assertEquals(3.332, $p_one->getTaxAmount());
+        $this->assertEquals(16.658, $p_two->getTaxAmount());
+        $this->assertEquals(0.625, $p_three->getTaxAmount());
         $this->assertEquals(0, $p_four->getTaxAmount());
-        $this->assertEquals(10.0, $p_five->getTaxAmount());
-        $this->assertEquals(24.83, $p_six->getTaxAmount());
-        $this->assertEquals(2.5, $p_seven->getTaxAmount());
-        $this->assertEquals(3.32, $p_eight->getTaxAmount());
-        $this->assertEquals(2.82, $p_nine->getTaxAmount());
-        $this->assertEquals(25.0, $p_ten->getTaxAmount());
+        $this->assertEquals(9.998, $p_five->getTaxAmount());
+        $this->assertEquals(24.834, $p_six->getTaxAmount());
+        $this->assertEquals(2.498, $p_seven->getTaxAmount());
+        $this->assertEquals(3.325, $p_eight->getTaxAmount());
+        $this->assertEquals(2.825, $p_nine->getTaxAmount());
+        $this->assertEquals(24.998, $p_ten->getTaxAmount());
     }
 
     public function testGetPriceAndTax()
@@ -191,16 +191,16 @@ class TaxableTest extends SapphireTest
         $p_nine = $this->objFromFixture(TestProduct::class, 'product9');
         $p_ten = $this->objFromFixture(TestProduct::class, 'product10');
 
-        $this->assertEquals(19.99, $p_one->getPriceAndTax());
-        $this->assertEquals(99.95, $p_two->getPriceAndTax());
-        $this->assertEquals(13.13, $p_three->getPriceAndTax());
+        $this->assertEquals(19.992, $p_one->getPriceAndTax());
+        $this->assertEquals(99.948, $p_two->getPriceAndTax());
+        $this->assertEquals(13.125, $p_three->getPriceAndTax());
         $this->assertEquals(12.5, $p_four->getPriceAndTax());
-        $this->assertEquals(59.99, $p_five->getPriceAndTax());
-        $this->assertEquals(149.00, $p_six->getPriceAndTax());
-        $this->assertEquals(14.99, $p_seven->getPriceAndTax());
-        $this->assertEquals(19.94, $p_eight->getPriceAndTax());
-        $this->assertEquals(16.94, $p_nine->getPriceAndTax());
-        $this->assertEquals(149.99, $p_ten->getPriceAndTax());
+        $this->assertEquals(59.988, $p_five->getPriceAndTax());
+        $this->assertEquals(149.004, $p_six->getPriceAndTax());
+        $this->assertEquals(14.988, $p_seven->getPriceAndTax());
+        $this->assertEquals(19.95, $p_eight->getPriceAndTax());
+        $this->assertEquals(16.95, $p_nine->getPriceAndTax());
+        $this->assertEquals(149.988, $p_ten->getPriceAndTax());
     }
 
     public function testGetFormattedPrice()
@@ -233,8 +233,8 @@ class TaxableTest extends SapphireTest
         i18n::set_locale('en_GB');
         $this->assertEquals("£19.99", $p_one->getFormattedPrice(true));
         $this->assertEquals("£149.00", $p_two->getFormattedPrice(true));
-        $this->assertEquals("£19.94", $p_three->getFormattedPrice(true));
-        $this->assertEquals("£16.94", $p_four->getFormattedPrice(true));
+        $this->assertEquals("£19.95", $p_three->getFormattedPrice(true));
+        $this->assertEquals("£16.95", $p_four->getFormattedPrice(true));
         $this->assertEquals("£149.99", $p_five->getFormattedPrice(true));
 
         i18n::set_locale('en_US');
