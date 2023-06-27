@@ -39,3 +39,14 @@ $cateogry = TaxCategory::get()->byID(1);
 $tax_rate = $category->getValidTax("GB", "GLS");
 ```
 
+## Testing
+
+The tests need a DB. To run them ensure that you have a `.env` file and you have setup some/all of the following
+
+```env
+SS_DATABASE_CLASS="MySQLDatabase"
+SS_DATABASE_USERNAME="root"
+SS_DATABASE_PASSWORD="chooseAPassword"
+SS_DATABASE_SERVER="ip_address/localhost"
+SS_DATABASE_NAME="yourDbName"
+```

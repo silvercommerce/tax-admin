@@ -28,7 +28,7 @@ class TaxCategoryTest extends SapphireTest
         TestProduct::class
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         Config::inst()->set(Region::class, "create_on_build", false);
