@@ -44,3 +44,7 @@
 ## 1.4.0
 
 * Added Taxable trait and TaxableProvider interface to help with tax based calculations
+
+## 1.5.0
+
+* Add SS5 support
