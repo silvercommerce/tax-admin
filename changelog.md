@@ -48,3 +48,7 @@
 ## 1.5.0
 
 * Add SS5 support
+
+## 2.0.0
+
+* SS5 focused tests
