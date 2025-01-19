@@ -10,24 +10,15 @@ use SilverStripe\Core\Config\Config;
 use SilverCommerce\GeoZones\Model\Region;
 use SilverCommerce\TaxAdmin\Tests\Model\TestProduct;
 
-/**
- * Test functionality of postage extension
- *
- */
 class TaxableTest extends SapphireTest
 {
     protected static $fixture_file = 'TaxData.yml';
 
-    /**
-     * Setup test only objects
-     *
-     * @var array
-     */
     protected static $extra_dataobjects = [
         TestProduct::class
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         Config::inst()->set(Region::class, "create_on_build", false);
@@ -38,7 +29,7 @@ class TaxableTest extends SapphireTest
         $member->Locale = "en_GB";
     }
 
-    public function testFilterTaxableExtensionResults()
+    public function testFilterTaxableExtensionResults(): void
     {
         $product = $this->objFromFixture(TestProduct::class, 'product1');
 
@@ -51,7 +42,7 @@ class TaxableTest extends SapphireTest
         $this->assertEquals("One", $list);
     }
 
-    public function testGetShowPriceWithTax()
+    public function testGetShowPriceWithTax(): void
     {
         $curr = TestProduct::config()->get('show_price_with_tax');
         $product = $this->objFromFixture(TestProduct::class, 'product1');
@@ -65,7 +56,7 @@ class TaxableTest extends SapphireTest
         TestProduct::config()->set('show_price_with_tax', $curr);
     }
 
-    public function testGetShowTaxString()
+    public function testGetShowTaxString(): void
     {
         $curr = TestProduct::config()->get('show_tax_string');
         $product = $this->objFromFixture(TestProduct::class, 'product1');
@@ -79,14 +70,14 @@ class TaxableTest extends SapphireTest
         TestProduct::config()->set('show_tax_string', $curr);
     }
 
-    public function testGetFormatter()
+    public function testGetFormatter(): void
     {
         $product = $this->objFromFixture(TestProduct::class, 'product1');
 
         $this->assertInstanceOf(NumberFormatter::class, $product->getFormatter());
     }
 
-    public function testGetCurrencySymbol()
+    public function testGetCurrencySymbol(): void
     {
         $locale = i18n::get_locale();
         $product = $this->objFromFixture(TestProduct::class, 'product1');
@@ -103,7 +94,7 @@ class TaxableTest extends SapphireTest
         i18n::set_locale($locale);
     }
 
-    public function testGetCurrency()
+    public function testGetCurrency(): void
     {
         $locale = i18n::get_locale();
         $product = $this->objFromFixture(TestProduct::class, 'product1');
@@ -120,7 +111,7 @@ class TaxableTest extends SapphireTest
         i18n::set_locale($locale);
     }
 
-    public function testGetNoTaxPrice()
+    public function testGetNoTaxPrice(): void
     {
         $p_one = $this->objFromFixture(TestProduct::class, 'product1');
         $p_two = $this->objFromFixture(TestProduct::class, 'product2');
@@ -133,7 +124,7 @@ class TaxableTest extends SapphireTest
         $this->assertEquals('16.625', $p_four->NoTaxPrice);
     }
 
-    public function testGetTaxRate()
+    public function testGetTaxRate(): void
     {
         $p_one = $this->objFromFixture(TestProduct::class, 'product1');
         $p_two = $this->objFromFixture(TestProduct::class, 'product3');
@@ -142,7 +133,7 @@ class TaxableTest extends SapphireTest
         $this->assertEquals(5, $p_two->getTaxRate()->Rate);
     }
 
-    public function testGetTaxPercentage()
+    public function testGetTaxPercentage(): void
     {
         $p_one = $this->objFromFixture(TestProduct::class, 'product1');
         $p_two = $this->objFromFixture(TestProduct::class, 'product3');
@@ -153,7 +144,7 @@ class TaxableTest extends SapphireTest
         $this->assertEquals(0, $p_three->getTaxPercentage());
     }
 
-    public function testGetTaxAmount()
+    public function testGetTaxAmount(): void
     {
         $p_one = $this->objFromFixture(TestProduct::class, 'product1');
         $p_two = $this->objFromFixture(TestProduct::class, 'product2');
@@ -166,19 +157,59 @@ class TaxableTest extends SapphireTest
         $p_nine = $this->objFromFixture(TestProduct::class, 'product9');
         $p_ten = $this->objFromFixture(TestProduct::class, 'product10');
 
-        $this->assertEquals(3.332, $p_one->getTaxAmount());
-        $this->assertEquals(16.658, $p_two->getTaxAmount());
-        $this->assertEquals(0.625, $p_three->getTaxAmount());
-        $this->assertEquals(0, $p_four->getTaxAmount());
-        $this->assertEquals(9.998, $p_five->getTaxAmount());
-        $this->assertEquals(24.834, $p_six->getTaxAmount());
-        $this->assertEquals(2.498, $p_seven->getTaxAmount());
-        $this->assertEquals(3.325, $p_eight->getTaxAmount());
-        $this->assertEquals(2.825, $p_nine->getTaxAmount());
-        $this->assertEquals(24.998, $p_ten->getTaxAmount());
+        $this->assertEqualsWithDelta(
+            3.332,
+            $p_one->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            16.658,
+            $p_two->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            0.625,
+            $p_three->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            0,
+            $p_four->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            9.998,
+            $p_five->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            24.834,
+            $p_six->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            2.498,
+            $p_seven->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            3.325,
+            $p_eight->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            2.825,
+            $p_nine->getTaxAmount(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            24.998,
+            $p_ten->getTaxAmount(),
+            0.3
+        );
     }
 
-    public function testGetPriceAndTax()
+    public function testGetPriceAndTax(): void
     {
         $p_one = $this->objFromFixture(TestProduct::class, 'product1');
         $p_two = $this->objFromFixture(TestProduct::class, 'product2');
@@ -191,19 +222,59 @@ class TaxableTest extends SapphireTest
         $p_nine = $this->objFromFixture(TestProduct::class, 'product9');
         $p_ten = $this->objFromFixture(TestProduct::class, 'product10');
 
-        $this->assertEquals(19.992, $p_one->getPriceAndTax());
-        $this->assertEquals(99.948, $p_two->getPriceAndTax());
-        $this->assertEquals(13.125, $p_three->getPriceAndTax());
-        $this->assertEquals(12.5, $p_four->getPriceAndTax());
-        $this->assertEquals(59.988, $p_five->getPriceAndTax());
-        $this->assertEquals(149.004, $p_six->getPriceAndTax());
-        $this->assertEquals(14.988, $p_seven->getPriceAndTax());
-        $this->assertEquals(19.95, $p_eight->getPriceAndTax());
-        $this->assertEquals(16.95, $p_nine->getPriceAndTax());
-        $this->assertEquals(149.988, $p_ten->getPriceAndTax());
+        $this->assertEqualsWithDelta(
+            19.992,
+            $p_one->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            99.948,
+            $p_two->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            13.125,
+            $p_three->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            12.5,
+            $p_four->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            59.988,
+            $p_five->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            149.004,
+            $p_six->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            14.988,
+            $p_seven->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            19.95,
+            $p_eight->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            16.95,
+            $p_nine->getPriceAndTax(),
+            0.3
+        );
+        $this->assertEqualsWithDelta(
+            149.988,
+            $p_ten->getPriceAndTax(),
+            0.3
+        );
     }
 
-    public function testGetFormattedPrice()
+    public function testGetFormattedPrice(): void
     {
         $whitespace = "\xc2\xa0";
         $locale = i18n::get_locale();

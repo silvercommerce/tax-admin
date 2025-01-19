@@ -5,10 +5,6 @@ namespace SilverCommerce\TaxAdmin\Tests;
 use SilverStripe\Dev\SapphireTest;
 use SilverCommerce\TaxAdmin\Helpers\MathsHelper;
 
-/**
- * Test functionality of postage extension
- *
- */
 class MathsHelperTest extends SapphireTest
 {
     protected $price_one = 82.83;
@@ -19,19 +15,16 @@ class MathsHelperTest extends SapphireTest
 
     /**
      * Quickly calculate tax at 20%
-     *
-     * @return float
      */
-    protected function calculateTax($value)
+    protected function calculateTax($value): float
     {
         return ($value / 100 * 20);
     }
 
     /**
      * Test that standard rounding works to different decimals.
-     *
      */
-    public function testRound()
+    public function testRound(): void
     {
         $this->assertEquals(
             17,
@@ -94,11 +87,7 @@ class MathsHelperTest extends SapphireTest
         );
     }
 
-    /**
-     * Test forcing rounding down
-     *
-     */
-    public function testRoundDown()
+    public function testRoundDown(): void
     {
         $this->assertEquals(
             16,
@@ -161,11 +150,7 @@ class MathsHelperTest extends SapphireTest
         );
     }
 
-    /**
-     * Test forcing rounding up.
-     *
-     */
-    public function testRoundUp()
+    public function testRoundUp(): void
     {
         $this->assertEquals(
             17,

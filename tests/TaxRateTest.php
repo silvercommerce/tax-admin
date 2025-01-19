@@ -8,25 +8,15 @@ use SilverCommerce\GeoZones\Model\Region;
 use SilverCommerce\TaxAdmin\Model\TaxRate;
 use SilverCommerce\TaxAdmin\Tests\Model\TestProduct;
 
-/**
- * Test functionality of postage extension
- *
- */
 class TaxRateTest extends SapphireTest
 {
-
     protected static $fixture_file = 'TaxData.yml';
 
-    /**
-     * Setup test only objects
-     *
-     * @var array
-     */
     protected static $extra_dataobjects = [
         TestProduct::class
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         Config::inst()->set(Region::class, "create_on_build", false);
@@ -35,7 +25,7 @@ class TaxRateTest extends SapphireTest
     /**
      * Test that Tax Rate returns an accurate list
      */
-    public function testZonesList()
+    public function testZonesList(): void
     {
         $obj = $this->objFromFixture(TaxRate::class, "vat");
 

@@ -3,6 +3,8 @@
 namespace SilverCommerce\TaxAdmin\Model;
 
 use Locale;
+use LogicException;
+use SilverCommerce\GeoZones\Helpers\GeoZonesHelper;
 use SilverStripe\ORM\DB;
 use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataList;
@@ -91,31 +93,37 @@ class TaxCategory extends DataObject implements PermissionProvider
      * from the users location (or default store location)
      *
      * @param string $country The current ISO-3166 2 character country code
-     * @param string $region A 3 character ISO-3166-2 subdivision code
+     * @param string $region An ISO-3166-2 subdivision code
      * @return TaxRate|null
      */
     public function ValidTax($country = null, $region = null)
     {
-        if (empty($country)) {
-            // First try and get the locale from the member
-            $member = Security::getCurrentUser();
+        try {
+            if (empty($country)) {
+                // First try and get the locale from the member
+                $member = Security::getCurrentUser();
 
-            if ($member && $member->getLocale()) {
-                $country = $member->getLocale();
+                if (!empty($member) && $member->getLocale()) {
+                    $locale = Locale::parseLocale($member->getLocale());
+                }
+
+                if (isset($locale['region'])) {
+                    $country = $locale['region'];
+                }
             }
-        }
 
-        if (empty($country)) {
-            $country = i18n::get_locale();
-        }
+            if (empty($country)) {
+                $country = i18n::get_locale();
+            }
 
-        if (strlen($country) > 2) {
+            GeoZonesHelper::create([$country]);
+        } catch (LogicException $e) {
             $country = Locale::getRegion($country);
         }
 
         $filter = [
             'Global' => 1,
-            "Zones.Regions.CountryCode" => $country
+            "Zones.Country:PartialMatch" => $country
         ];
 
         $rates = $this
@@ -123,7 +131,10 @@ class TaxCategory extends DataObject implements PermissionProvider
             ->filterAny($filter);
 
         if (isset($region)) {
-            $rates = $rates->filter("Zones.Regions.Code", $region);
+            $rates = $rates->addFilter([
+                "Zones.RegionCodes:PartialMatch" =>
+                $region
+            ]);
         }
 
         return $rates->first();

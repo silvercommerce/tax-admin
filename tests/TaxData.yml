@@ -1,16 +1,3 @@
-SilverCommerce\GeoZones\Model\Region:
-  gb_glos:
-    Name: "Gloucestershire"
-    Code: "GLS"
-    CountryCode: "GB"
-  de_berlin:
-    Name: "Berlin"
-    Code: "BE"
-    CountryCode: "DE"
-  us_arizona:
-    Name: "Arizona"
-    Code: "AZ"
-    CountryCode: "US"
 SilverCommerce\GeoZones\Model\Zone:
   uk:
     Name: "UK"
@@ -27,27 +14,41 @@ SilverCommerce\GeoZones\Model\Zone:
     Country: "US"
     AllRegions: true
     Enabled: true
+
+
 SilverCommerce\TaxAdmin\Model\TaxRate:
   global:
     Title: "VAT Global"
     Rate: 20
     Global: 1
-    Zones: =>SilverCommerce\GeoZones\Model\Zone.uk,=>SilverCommerce\GeoZones\Model\Zone.de
+    Zones:
+      - =>SilverCommerce\GeoZones\Model\Zone.uk
+      - =>SilverCommerce\GeoZones\Model\Zone.de
   vat:
     Title: "VAT"
     Rate: 20
-    Zones: =>SilverCommerce\GeoZones\Model\Zone.uk,=>SilverCommerce\GeoZones\Model\Zone.de
+    Zones:
+      - =>SilverCommerce\GeoZones\Model\Zone.uk
+      - =>SilverCommerce\GeoZones\Model\Zone.de
   reduced:
     Title: "reduced"
     Rate: 5
-    Zones: =>SilverCommerce\GeoZones\Model\Zone.us
+    Zones:
+      - =>SilverCommerce\GeoZones\Model\Zone.us
+
+
 SilverCommerce\TaxAdmin\Model\TaxCategory:
   uk:
     Title: "UK"
-    Rates: =>SilverCommerce\TaxAdmin\Model\TaxRate.vat,=>SilverCommerce\TaxAdmin\Model\TaxRate.reduced
+    Rates:
+      - =>SilverCommerce\TaxAdmin\Model\TaxRate.vat
+      - =>SilverCommerce\TaxAdmin\Model\TaxRate.reduced
   uk_global:
     Title: "UK Global"
-    Rates: =>SilverCommerce\TaxAdmin\Model\TaxRate.global
+    Rates:
+      - =>SilverCommerce\TaxAdmin\Model\TaxRate.global
+
+
 SilverCommerce\TaxAdmin\Tests\Model\TestProduct:
   product1:
     Title: "Test Product 1"
