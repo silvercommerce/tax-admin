@@ -52,3 +52,6 @@
 ## 2.0.0
 
 * SS5 focused tests
+* Clean up TaxCategory::getCMSFields()
+* Remove depreciated methods
+* Capitalise namespaced folders
