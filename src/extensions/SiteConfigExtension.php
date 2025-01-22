@@ -2,13 +2,14 @@
 
 namespace SilverCommerce\TaxAdmin\Extensions;
 
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\SiteConfig\SiteConfig;
 use SilverCommerce\TaxAdmin\Model\TaxRate;
+use SilverStripe\Forms\GridField\GridField;
 use SilverCommerce\TaxAdmin\Model\TaxCategory;
+use SilverCommerce\TaxAdmin\Forms\GridFieldTaxConfig;
 
 /**
  * Provides additional settings required globally for this module
@@ -26,6 +27,12 @@ class SiteConfigExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
+        /** @var SiteConfig */
+        $owner = $this->getOwner();
+        $config = GridFieldTaxConfig::create();
+        $cats = $owner->TaxCategories();
+        $rates = $owner->TaxRates();
+
         // Add config sets
         $fields->addFieldsToTab(
             'Root.Tax',
@@ -33,8 +40,9 @@ class SiteConfigExtension extends DataExtension
                 GridField::create(
                     'TaxCategories',
                     null,
-                    $this->owner->TaxCategories()
-                )->setConfig(new GridFieldConfig_RelationEditor()),
+                    $cats,
+                    $config
+                ),
                 LiteralField::create(
                     "TaxDivider",
                     '<div class="form-group field"></div>'
@@ -42,8 +50,9 @@ class SiteConfigExtension extends DataExtension
                 GridField::create(
                     'TaxRates',
                     null,
-                    $this->owner->TaxRates()
-                )->setConfig(new GridFieldConfig_RelationEditor())
+                    $rates,
+                    $config
+                )
             ]
         );
     }
