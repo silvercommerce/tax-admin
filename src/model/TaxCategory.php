@@ -149,36 +149,37 @@ class TaxCategory extends DataObject implements PermissionProvider
 
     public function getCMSFields()
     {
-        $site = SiteConfig::current_site_config();
+        $this->beforeUpdateCMSFields(function ($fields) {
+            $site = SiteConfig::current_site_config();
+            $grid = $fields->dataFieldByName("Rates");
 
-        $fields = parent::getCMSFields();
+            if (!empty($grid)) {
+                $fields->removeByName('Rates');
+                $config = $grid->getConfig();
 
-        $grid = $fields->dataFieldByName("Rates");
+                $add_field = new GridFieldAddExistingAutocompleter('buttons-before-right');
 
-        if ($grid) {
-            $grid->setTitle("");
-            $config = $grid->getConfig();
+                if ($add_field && $site) {
+                    $dataClass = $grid->getModelClass();
+                    $add_field->setSearchList(
+                        DataList::create($dataClass)->filter('Site.ID', $site->ID)
+                    );
+                }
 
-            $add_field = new GridFieldAddExistingAutocompleter('buttons-before-right');
-
-            if ($add_field && $site) {
-                $dataClass = $grid->getModelClass();
-                $add_field->setSearchList(
-                    DataList::create($dataClass)->filter('Site.ID', $site->ID)
-                );
+                $config
+                    ->removeComponentsByType(GridFieldAddNewButton::class)
+                    ->removeComponentsByType(GridFieldEditButton::class)
+                    ->removeComponentsByType(GridFieldDeleteAction::class)
+                    ->removeComponentsByType(GridFieldDetailForm::class)
+                    ->removeComponentsByType(GridFieldAddExistingAutocompleter::class)
+                    ->addComponent($add_field)
+                    ->addComponent(new GridFieldDeleteAction(true));
+                
+                $fields->addFieldToTab('Root.Main', $grid);
             }
+        });
 
-            $config
-                ->removeComponentsByType(GridFieldAddNewButton::class)
-                ->removeComponentsByType(GridFieldEditButton::class)
-                ->removeComponentsByType(GridFieldDeleteAction::class)
-                ->removeComponentsByType(GridFieldDetailForm::class)
-                ->removeComponentsByType(GridFieldAddExistingAutocompleter::class)
-                ->addComponent($add_field)
-                ->addComponent(new GridFieldDeleteAction(true));
-        }
-
-        return $fields;
+        return parent::getCMSFields();
     }
     
     public function requireDefaultRecords()
@@ -262,7 +263,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
@@ -287,7 +288,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
@@ -312,7 +313,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
