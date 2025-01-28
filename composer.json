@@ -23,7 +23,7 @@
         "silverstripe/framework": "^4 || ^5",
         "silverstripe/siteconfig": "^4 || ^5",
         "symbiote/silverstripe-gridfieldextensions": "^3.6 || ^4",
-        "silvercommerce/geozones": "^2"
+        "silvercommerce/geozones": "^1"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
