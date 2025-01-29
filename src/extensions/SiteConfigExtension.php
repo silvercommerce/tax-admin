@@ -10,12 +10,6 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverCommerce\TaxAdmin\Model\TaxRate;
 use SilverCommerce\TaxAdmin\Model\TaxCategory;
 
-/**
- * Provides additional settings required globally for this module
- *
- * @author i-lateral (http://www.i-lateral.com)
- * @package product-catalogue
- */
 class SiteConfigExtension extends DataExtension
 {
     

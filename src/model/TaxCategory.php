@@ -10,7 +10,6 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Security\Permission;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\SiteConfig\SiteConfig;
@@ -18,22 +17,13 @@ use SilverCommerce\TaxAdmin\Model\TaxRate;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
-use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 /**
- * A tax rate can be added to a product and allows you to map a product
- * to a percentage of tax.
- *
- * If added to a product, the tax will then be added to the price
- * automatically.
- *
- * @author i-lateral (http://www.i-lateral.com)
- * @package catalogue
+ * A grouping of tax rates that can be used to determine the most appropriate
+ * tax based on a provided region.
  */
 class TaxCategory extends DataObject implements PermissionProvider
 {
@@ -251,7 +241,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
@@ -276,7 +266,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {
@@ -301,7 +291,7 @@ class TaxCategory extends DataObject implements PermissionProvider
         }
         
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_CATEGORY"])) {

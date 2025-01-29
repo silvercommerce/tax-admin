@@ -3,17 +3,14 @@
 namespace SilverCommerce\TaxAdmin\Model;
 
 use SilverStripe\ORM\DB;
-use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Security;
 use SilverStripe\Security\Permission;
 use SilverStripe\Forms\RequiredFields;
-use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\Forms\CheckboxSetField;
-use SilverStripe\Security\PermissionProvider;
-use SilverStripe\Forms\MultiSelectField;
-use SilverStripe\Forms\ListboxField;
 use SilverCommerce\GeoZones\Model\Zone;
+use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Security\PermissionProvider;
 
 /**
  * A tax rate can be added to a product and allows you to map a product
@@ -21,9 +18,6 @@ use SilverCommerce\GeoZones\Model\Zone;
  *
  * If added to a product, the tax will then be added to the price
  * automatically.
- *
- * @author i-lateral (http://www.i-lateral.com)
- * @package catalogue
  */
 class TaxRate extends DataObject implements PermissionProvider
 {
@@ -165,7 +159,7 @@ class TaxRate extends DataObject implements PermissionProvider
         }
 
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_RATE"])) {
@@ -190,7 +184,7 @@ class TaxRate extends DataObject implements PermissionProvider
         }
 
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_RATE"])) {
@@ -215,7 +209,7 @@ class TaxRate extends DataObject implements PermissionProvider
         }
 
         if (!$member) {
-            $member = Member::currentUser();
+            $member = Security::getCurrentUser();
         }
 
         if ($member && Permission::checkMember($member->ID, ["ADMIN", "TAXADMIN_MANAGE_RATE"])) {
