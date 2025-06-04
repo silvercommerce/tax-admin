@@ -20,9 +20,9 @@
         "issues": "https://github.com/silvercommerce/tax-admin/issues"
     },
     "require": {
-        "silverstripe/framework": "^4 || ^5",
-        "silverstripe/siteconfig": "^4 || ^5",
-        "symbiote/silverstripe-gridfieldextensions": "^3.6 || ^4",
+        "silverstripe/framework": "^5",
+        "silverstripe/siteconfig": "^5",
+        "symbiote/silverstripe-gridfieldextensions": "^4",
         "silvercommerce/geozones": "^2"
     },
     "require-dev": {
